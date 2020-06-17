@@ -17,26 +17,37 @@ class Cache:
         
     def insert(self, k, v):
         """
-        k present the key,
+        k presents the key,
         v is the value to be inserted.
         Insert value into cache dictionary
         """
         
         self.cache[k] = v
-        
         return
     
     
     def update(self, k, v):
         """
-        k present the key,
+        k presents the key,
         v is the value to be updated.
         Update the self.cache
         """
+
         if not self.cache[k]:
-            return "Not exists"
+            return "Key not found"
         else:
             self.cache[k] = v
+            
+            
+    def delete(self, k):
+        """
+        k is the key to be removed
+        """
+        
+        try:
+            self.cache.pop(k)    
+        except KeyError:
+            print("Key not found")
             
             
 
