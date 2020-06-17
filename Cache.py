@@ -1,5 +1,5 @@
 # Cache Class
-
+from collections import defaultdict
 
 class Cache:
     """
@@ -12,4 +12,9 @@ class Cache:
         - cache
         - size 
         """
+        self.cache = defaultdict(set)
+        self.size = 10e6
+        
+    
+        
         
