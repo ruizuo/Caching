@@ -1,5 +1,6 @@
 # Cache Class
 from collections import defaultdict
+import datetime
 
 class Cache:
     """
@@ -9,10 +10,12 @@ class Cache:
     def __init__(self):
         """
         Construct Cache Ojbect with the following variables.
-        - cache
-        - size 
+        - cache: dictinary type cache, with default value {}
+        - queue: Fist-in, first-out queue.
+        - size: max size of the cache 
         """
         self.cache = defaultdict(set)
+        self.queue = []
         self.size = 10e6
         
     def insert(self, k, v):
@@ -20,9 +23,22 @@ class Cache:
         k presents the key,
         v is the value to be inserted.
         Insert value into cache dictionary
-        """
-        
-        self.cache[k] = v
+        """      
+        if len(self.cache) < self.size:   
+            # If the cache is not full, insert into cache  
+            self.cache[k] = {"datetime": datetime.datetime.now(),
+                            "value":v}
+            
+            # append this key to queue
+            self.queue.append(k)       
+            
+        else:
+            # If the cache is full, then remove the oldest one
+            self.remove_redundance()
+            
+            # Then insert new one
+            self.insert(k,v)
+            
         return
     
     
@@ -34,9 +50,11 @@ class Cache:
         """
 
         if not self.cache[k]:
+            self.delete(k)
             return "Key not found"
         else:
-            self.cache[k] = v
+            self.cache[k] = {"datetime": datetime.datetime.now(),
+                             "value":v}
             
             
     def delete(self, k):
@@ -48,6 +66,17 @@ class Cache:
             self.cache.pop(k)    
         except KeyError:
             print("Key not found")
+            
+            
+    def remove_redundance():
+        # get the first element from the queue
+        k = self.queue.pop(0)
+        
+        # remove the element from cache by key
+        
+        self.delete(k)
+        
+        return       
             
     @property
     def size(self):
