@@ -50,40 +50,60 @@ class Cache:
         """
 
         if not self.cache[k]:
+            # Remove the empty {} 
             self.delete(k)
             return "Key not found"
         else:
+            # Update the value by key
             self.cache[k] = {"datetime": datetime.datetime.now(),
                              "value":v}
             
+            # update the value in queue
+            try 
+                # remove the element from the queue by value
+                self.queue.remove(k)  
+                
+                # Append the key to the queue
+                self.queue.append(k)          
+                
+            except ValueError:
+                # Exception if key not be found in queue
+                print("Oops!  That was no valid vlaue.")        
+                 
+        return    
             
     def delete(self, k):
         """
         k is the key to be removed
+        """      
+        try:
+             
+            # remove the element from the queue by value
+            self.queue.remove(k)                
+            # reomve key from cache
+            self.cache.pop(k)    
+        except KeyError:
+            # exception if key not found
+            print("Key not found")
+        except ValueError:
+            # Exception if key not be found in queue
+            print("Oops!  That was no valid vlaue.")          
+            
+    def remove_redundance():
         """
+        Remove the first element (the key to be removed from cache) from the queue, 
+        if the cache is full.
+        """
+        # get the first element from the queue
+        k = self.queue.pop(0)
         
+        # remove the element from cache by key 
         try:
             self.cache.pop(k)    
         except KeyError:
             print("Key not found")
-            
-            
-    def remove_redundance():
-        # get the first element from the queue
-        k = self.queue.pop(0)
-        
-        # remove the element from cache by key
-        
-        self.delete(k)
         
         return       
-            
-    @property
-    def size(self):
-        """
-        Return the length of the cache
-        """
-        return len(self.cache)
     
     
         
