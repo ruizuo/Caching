@@ -49,6 +49,15 @@ class Cache:
         except KeyError:
             print("Key not found")
             
+    @property
+    def size(self):
+        """
+        Return the length of the cache
+        """
+        return len(self.cache)
+    
+    
+        
             
 
         
