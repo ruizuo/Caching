@@ -76,8 +76,7 @@ class Cache:
         """
         k is the key to be removed
         """      
-        try:
-             
+        try:           
             # remove the element from the queue by value
             self.queue.remove(k)                
             # reomve key from cache

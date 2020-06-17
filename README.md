@@ -17,5 +17,6 @@ A cache is a way to store a limited amount of data such that future requests for
 - Delete(key): Delete the value by key
 - remove_redundance(): Remove the oldest record once the cache is full. 
 
+
 ## Author: Zuo Rui
 ## Date: 17 June, 2020
