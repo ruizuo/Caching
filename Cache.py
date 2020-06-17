@@ -51,7 +51,7 @@ class Cache:
 
         if not self.cache[k]:
             # Remove the empty {} 
-            self.delete(k)
+            del self.cache[k]
             return "Key not found"
         else:
             # Update the value by key
